@@ -28,11 +28,10 @@ sudo apt install ros-humble-ros2-controllers
 ssh robot@192.168.42.1
 mkdir tita_ws/src && cd tita_ws/src
 git clone https://github.com/DDTRobot/TITA_Description.git
-
-git clone https://github.com/DDTRobot/TITA_ROS2_Control_Sim.git
+git clone https://github.com/DDTRobot/tita_hardware_ros2_control.git
 colcon build --packages-up-to hw_bringup 
 source install/setup.bash
-ros2 launch hw_bringup hw_bringup.launch.py sim_env:=gazebo 
+ros2 launch hw_bringup hw_bringup.launch.py
 ```
 In the launch file, the default controller to start is `effort_controllers/JointGroupEffortController`. Create a new terminal and enter the following command to confirm if the controller is working properly.
 ```bash
