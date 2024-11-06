@@ -138,7 +138,7 @@ hardware_interface::return_type HardwareBridge::read(
     mJoints[id].position = q[id];
     mJoints[id].velocity = v[id];
     mJoints[id].effort = t[id];
-    if (id == 1 || id == 5) {
+    if (id == 1 || id == 1 + mJoints.size()/2) {
       if (mJoints[id].position < -2.5) {
         mJoints[id].position += 2 * M_PI;
       }

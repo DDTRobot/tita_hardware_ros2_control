@@ -80,7 +80,14 @@ namespace can_device
   class MotorsCanSendApi
   {
   public:
-    MotorsCanSendApi(size_t size) { (void)size; }
+    MotorsCanSendApi(size_t size)
+    {
+      if (size % 8 == 0)
+        leg_dof_ = 4;
+      else if (size % 6 == 0)
+        leg_dof_ = 3;
+      leg_num_ = size / leg_dof_;
+    }
     ~MotorsCanSendApi() = default;
     bool send_motors_can(std::vector<motor_out> motors);
     bool send_command_can_channel_input(ChannelInput data);
@@ -106,6 +113,7 @@ namespace can_device
       gettimeofday(&tv, NULL);
       return std::move(tv.tv_sec * 1000000 + tv.tv_usec);
     }
+    size_t leg_dof_{4}, leg_num_{2};
   };
 } // namespace can_device
 

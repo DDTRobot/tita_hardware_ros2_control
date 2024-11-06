@@ -65,6 +65,9 @@ namespace can_device
   public:
     MotorsImuCanReceiveApi(size_t size)
     {
+      if(size % 8 == 0) leg_dof_ = 4;
+      else if(size % 6 == 0) leg_dof_ = 3;
+      leg_num_ = size / leg_dof_;
       register_motors_device_can_filter();
       api_motor_in_t default_motor_in;
       std::memset(&default_motor_in, 0x00U, sizeof(api_motor_in_t));
@@ -106,6 +109,7 @@ namespace can_device
     api_motor_status_t motors_status_;
 
     mutable std::shared_mutex motors_in_mutex_, imu_mutex_;
+    size_t leg_dof_{4}, leg_num_{2};
   };
 } // namespace can_device
 
